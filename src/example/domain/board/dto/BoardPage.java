@@ -6,19 +6,18 @@ import java.util.List;
 
 public class BoardPage {
 
-    private final int total;		 //전체 게시물수
-    private final int currentPage;	 //현재 페이지(요청페이지)
-    private final List<Board> list;  //게시글목록정보
-    private int totalPages;	         //총페이지수
-    private int startPage;	//시작페이지번호
-    private int endPage;		//끝페이지번호
+    private final int total;		 // 전체 게시물수
+    private final int currentPage;	 // 현재 페이지(요청페이지)
+    private final List<Board> list;  // 게시글목록정보
+    private int totalPages;	 //총페이지수
+    private int startPage;	 //시작페이지번호
+    private int endPage;	 //끝페이지번호
 
-    //생성자
-    //파라미터를 가진 생성자 - 매개변수로 받은 데이터를 필드의 초기화
-    //1번째 파라미터 total- 전체게시물수
-    //2번째 파라미터 currentPage-현재 페이지(user가 보고싶은 페이지번호)
-    //3번째 파라미터 size - 1page당 보여줄 게시물수(교재에서는 10건)
-    //4번째 파라미터 - 출력할 게시글내용목록
+
+    /* total - 전체게시물수
+    // currentPage - 현재 페이지(요청페이지)
+    // size - 한페이지당 보여줄 게시물수
+    // list - 출력할 게시글내용목록 */
     public BoardPage(int total, int currentPage, int size, List<Board> list) {
 
         this.total = total;
@@ -31,12 +30,12 @@ public class BoardPage {
             endPage = 0;
 
         }else { //게시물이 존재하는 경우
-            totalPages = total/size; //총페이지수=전체게시물수/1page당 보여줄 게시물수
+            totalPages = total/size; // 총페이지수 = 전체게시물수 / 한페이지당 보여줄 게시물수
 
-            if (total%size>0) {      //나머지가 0보다 크면
-                totalPages++;        //전체페이수를 1씩증가
+            if (total%size>0) {      // 나머지가 0보다 크면
+                totalPages++;        // 전체페이수를 1씩증가
             }
-            int modVal=currentPage%5;  //user가 보려하는 요청페이지를 5로 나눈 나머지를 저장
+            int modVal=currentPage%5;  // user가 보려하는 요청페이지를 5로 나눈 나머지를 저장
             // 요청페이지가 1-> modVal은 1
             // 요청페이지가 2-> modVal은 2
             // 요청페이지가 3-> modVal은 3
@@ -59,7 +58,7 @@ public class BoardPage {
         }
     }
 
-    //게시글없니? 게시글없으면 true리턴
+    //게시글없니? 게시글 없으면 true
     public boolean hasNoBoards() {
         return total == 0;
     }

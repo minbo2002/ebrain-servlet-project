@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title>게시판 목록</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -77,8 +78,8 @@
         <table border="1" style="width: 1200px;">
             <thead>
             <tr>
-                <th>게시판번호</th>
-                <th>카테고리 ID</th>
+                <th>글 번호</th>
+                <th>카테고리</th>
                 <th>작성자</th>
                 <th>제목</th>
                 <th>내용</th>
@@ -100,9 +101,9 @@
                 <c:forEach var="item" items="${boardPage.list}">
                     <tr>
                         <td>${item.boardId}</td>
-                        <td>${item.categoryId}</td>
+                        <td>${item.categoryName}</td>
                         <td>${item.writer}</td>
-                        <td><a href="/recomboardRead.do?no=${item.rNo}&pageNo=${boardPage.currentPage}&rowSize=${rowSize}">${item.title}</a></td>
+                        <td><a href="">${item.title}</a></td>
                         <td>${item.content}</td>
                         <td>${item.count}</td>
                         <td>
@@ -117,7 +118,7 @@
 
             <%-- paging 처리 --%>
             <tr>
-                <td colspan="6" style="text-align: center;">
+                <td colspan="8" style="text-align: center;">
                     <%-- JSTL if조건문 : 이전출력 --%>
                     <c:if test="${boardPage.startPage > 5}">
                         <a href="/boardList.do?pageNo=${boardPage.startPage-5}&rowSize=${rowSize}">prev</a>

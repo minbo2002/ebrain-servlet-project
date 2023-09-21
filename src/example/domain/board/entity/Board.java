@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 public class Board {
 
     private Long boardId;
-    private Long categoryId;
+//    private Long categoryId;
+    private String categoryName;
     private String writer;
     private String title;
     private String content;
@@ -20,9 +21,9 @@ public class Board {
 
     }
 
-    public Board(Long boardId, Long categoryId, String writer, String title, String content, int count, String boardPw, String boardRePw, Timestamp createdAt, Timestamp modifiedAt) {
+    public Board(Long boardId, String categoryName, String writer, String title, String content, int count, String boardPw, String boardRePw, Timestamp createdAt, Timestamp modifiedAt) {
         this.boardId = boardId;
-        this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.writer = writer;
         this.title = title;
         this.content = content;
@@ -40,11 +41,11 @@ public class Board {
         this.boardId = boardId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getWriter() {
@@ -107,7 +108,7 @@ public class Board {
     public String toString() {
         return "Board{" +
                 "boardId=" + boardId +
-                ", categoryId='" + categoryId + '\'' +
+                ", categoryName='" + categoryName + '\'' +
                 ", writer='" + writer + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +

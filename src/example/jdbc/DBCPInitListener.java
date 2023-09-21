@@ -28,6 +28,7 @@ public class DBCPInitListener implements ServletContextListener {
 		   </context-param>
 		 */
         String poolConfig = servletContextEvent.getServletContext().getInitParameter("poolConfig");
+        System.out.println("poolConfig : " + poolConfig);
         Properties prop = new Properties();//Properties객체생성
         //"키=값"형식의 문자열로부터 Properties를 로딩
         //String 키명=String 값

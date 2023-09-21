@@ -14,8 +14,8 @@ public class BoardDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        String sql = "select count(no) " +
-                     "from t_board";
+        String sql = "select count(board_id) " +
+                     "from board";
 
         try {
             pstmt = conn.prepareStatement(sql);
@@ -29,7 +29,11 @@ public class BoardDao {
         }finally {
             JdbcUtil.close(rs);
             JdbcUtil.close(pstmt);
-            JdbcUtil.close(conn);
+            /* JdbcUtil.close(conn);
+
+               DB Connection Pool을 통해서 Connection을 관리하므로 getConnection() 메서드를 통해 Connection을 얻은 다음에
+               이후에는 직접 닫지말고 반환해서 재사용해야 한다.
+            */
         }
     }
 
@@ -40,7 +44,7 @@ public class BoardDao {
 
         List<Board> boardList = new ArrayList<Board>();
 
-        String sql = "SELECT a.board_id, b.category_id, a.writer, a.title, a.content, a.count, a.board_pw, a.board_repw, a.created_at, a.modified_at "+
+        String sql = "SELECT a.board_id, b.category_name, a.writer, a.title, a.content, a.count, a.board_pw, a.board_repw, a.created_at, a.modified_at "+
                      "FROM board a JOIN category b ON a.category_id=b.category_id "+
                      "order BY a.board_id desc LIMIT ?,?";
 
@@ -55,7 +59,7 @@ public class BoardDao {
 
             while(rs.next()) {
                 Board board = new Board(rs.getLong("BOARD_ID"),
-                                        rs.getLong("CATEGORY_ID"),
+                                        rs.getString("CATEGORY_NAME"),
                                         rs.getString("WRITER"),
                                         rs.getString("TITLE"),
                                         rs.getString("CONTENT"),
@@ -63,7 +67,7 @@ public class BoardDao {
                                         rs.getString("BOARD_PW"),
                                         rs.getString("BOARD_REPW"),
                                         rs.getTimestamp("CREATED_AT"),
-                                        rs.getTimestamp("UPDATED_AT"));
+                                        rs.getTimestamp("MODIFIED_AT"));
 
                 boardList.add(board);
             }
@@ -72,7 +76,6 @@ public class BoardDao {
         }finally {
             JdbcUtil.close(rs);
             JdbcUtil.close(pstmt);
-            JdbcUtil.close(conn);
         }
     }
 

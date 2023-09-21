@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <!-- 서블릿 컨텍스트 리스너 등록-->
     <listener>
         <listener-class>example.jdbc.DBCPInitListener</listener-class>
@@ -20,7 +24,7 @@
             validationQuery=select 1
             minIdle=3
             maxTotal=30
-            poolName=board
+            poolName=ebrainstudy
         </param-value>
     </context-param>
 

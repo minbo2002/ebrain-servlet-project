@@ -24,8 +24,10 @@ public class ControllerUsingURI extends HttpServlet {
         // web.xml문서 설정부분에서 /WEB-INF/commandHandlerURI.properties를 가져와
         // String타입 configFile변수에 저장되는 값은 "/WEB-INF/commandHandlerURI.properties
         String configFile = getInitParameter("configFile");
+        System.out.println("configFile = " + configFile);
         Properties prop = new Properties();// Properties객체
         String configFilePath = getServletContext().getRealPath(configFile);
+        System.out.println("configFilePath = " + configFilePath);
 
         // 실행동작할 수 있는 파일로 만든다
         try (FileReader fis = new FileReader(configFilePath)) {
@@ -35,7 +37,7 @@ public class ControllerUsingURI extends HttpServlet {
         }
 
         // key목록을 가져오기
-        Iterator keyIter = prop.keySet().iterator();
+        Iterator<Object> keyIter = prop.keySet().iterator();
 
         // key가 있는 만큼 반복
         while (keyIter.hasNext()) {
