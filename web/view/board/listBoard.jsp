@@ -7,6 +7,18 @@
     <title>게시판 목록</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+    <style>
+    #searchDiv, #tableDiv, #homeDiv {
+        text-align: center;
+    }
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin: auto;
+    }
+    </style>
+
     <script>
         $(function() {
             $("#btnMain").click(function() {
@@ -23,33 +35,30 @@
 		request.setAttribute("boardPage", boardPage);
 		request.setAttribute("pageNo", pageNo);
 		request.setAttribute("rowSize", rowSize);
-		request.setAttribute("col", col);
+		request.setAttribute("searchOption", searchOption);
 		request.setAttribute("word", word);
 
 		*세션 : ${authUser} <br/>
 		*pageNo(보고싶은페이지) : ${pageNo} <br/>
 		*rowSize(한페이지당 글 개수) : ${rowSize}  <br/>
-		*col(조회조건) : ${col}  <br/>
+		*col(조회조건) : ${searchOption}  <br/>
 		*word(조회한 단어) : ${word}  <br/>
 		*starPage : ${boardPage.startPage} <br/>
 		*endPage :  ${boardPage.endPage} <br/>
 		*totalPages : ${boardPage.totalPages} <br/><br/>
 	--%>
 
-    <h2 align="center">추천게시판</h2>
+    <h2 style="text-align: center">추천게시판</h2>
 
     <br/>
-
-    <div id="formDiv">
-        <form name="frm" method="get" action="<%=request.getContextPath()%>/recomboardSearch.do">
+    <div id="searchDiv">
+        <form name="frm" method="get" action="<%=request.getContextPath()%>/boardList.do">
             조회조건 :
-            <select name="col">
-                <option value="">선택안함(전체조회)</option>
-                <option value="searchId">아이디</option>
-                <option value="searchTitle">제목</option>
-                <option value="searchContent">내용</option>
-                <!-- <option value="searchTitleContent">제목+내용</option> -->
-                <!-- <option value="all">아이디+제목+내용</option> -->
+            <select name="searchOption">
+                <option value="">선택안함</option>
+                <option value="category">카테고리</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
             </select> <br/>
 
             페이지당 게시물 개수 :
@@ -67,10 +76,7 @@
 
     <br/><br/>
     <div id="homeDiv">
-
-        <c:if test="${not empty authUser}">
-            <input type="button" value="글쓰기" id="btnWrite">
-        </c:if>
+        <input type="button" value="글쓰기" id="btnWrite">
     </div>
 
 
@@ -125,8 +131,8 @@
                     </c:if>
 
                     <%-- JSTL forEach조건문 : 페이지번호출력 --%>
-                    <c:forEach var="pNo" begin="${boardPage.startPage}" end="${boardPage.endPage}">
-                        <a href="/boardList.do?pageNo=${pNo}&rowSize=${rowSize}">${pNo}</a>
+                    <c:forEach var="pageNo" begin="${boardPage.startPage}" end="${boardPage.endPage}">
+                        <a href="/boardList.do?pageNo=${pageNo}&rowSize=${rowSize}">${pageNo}</a>
                     </c:forEach>
 
                     <%-- JSTL if조건문 : 다음출력 --%>

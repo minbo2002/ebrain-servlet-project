@@ -13,6 +13,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <c:out value="Hello World!"/>
+  <c:out value="환영합니다"/> </br>
+  <a href="/boardList.do">게시판으로 이동</a>
   </body>
 </html>
